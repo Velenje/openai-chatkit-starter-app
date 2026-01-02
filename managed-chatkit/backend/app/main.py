@@ -27,9 +27,17 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+async def root() -> Mapping[str, str]:
+    return {"status": "ok"}
+
 @app.get("/health")
 async def health() -> Mapping[str, str]:
     return {"status": "ok"}
+
+@app.post("/api/create-session")
+async def create_session(request: Request) -> JSONResponse:
+    # ... rest of your code
 
 
 @app.post("/api/create-session")
