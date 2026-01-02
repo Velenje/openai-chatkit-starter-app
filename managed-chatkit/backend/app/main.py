@@ -37,11 +37,6 @@ async def health() -> Mapping[str, str]:
 
 @app.post("/api/create-session")
 async def create_session(request: Request) -> JSONResponse:
-    # ... rest of your code
-
-
-@app.post("/api/create-session")
-async def create_session(request: Request) -> JSONResponse:
     """Exchange a workflow id for a ChatKit client secret."""
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
