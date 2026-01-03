@@ -11,12 +11,16 @@ export const workflowId = (() => {
 
 export function createClientSecretFetcher(
   workflow: string,
-  endpoint = "/api/create-session"
+  endpoint?: string
 ) {
+  // Use the Render backend URL from environment variables
+  const apiUrl = readEnvString(import.meta.env.VITE_CHATKIT_API_URL);
+  const finalEndpoint = endpoint || (apiUrl ? `${apiUrl}/api/create-session` : "/api/create-session");
+
   return async (currentSecret: string | null) => {
     if (currentSecret) return currentSecret;
 
-    const response = await fetch(endpoint, {
+    const response = await fetch(finalEndpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ workflow: { id: workflow } }),
